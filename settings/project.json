@@ -2,7 +2,24 @@
   "assets-sort-type": "name",
   "collision-matrix": [
     [
+      false
+    ],
+    [
+      false,
+      false,
+      true,
       true
+    ],
+    [
+      false,
+      true,
+      false
+    ],
+    [
+      false,
+      true,
+      false,
+      false
     ]
   ],
   "design-resolution-height": 768,
@@ -21,7 +38,10 @@
   "fit-height": true,
   "fit-width": true,
   "group-list": [
-    "default"
+    "default",
+    "bad",
+    "bullet",
+    "player"
   ],
   "last-module-event-record-time": 0,
   "simulator-orientation": false,
@@ -30,6 +50,5 @@
     "width": 960
   },
   "use-customize-simulator": true,
-  "use-project-simulator-setting": false,
-  "start-scene": "current"
+  "use-project-simulator-setting": false
 }
