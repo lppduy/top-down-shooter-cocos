@@ -6,6 +6,9 @@ cc.Class({
   onLoad() {
     this.action = this.moveToPlayer();
     this.node.runAction(this.action);
+
+    let manager = cc.director.getCollisionManager();
+    manager.enabled = true;
   },
 
   start() {},
