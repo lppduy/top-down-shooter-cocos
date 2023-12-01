@@ -3,8 +3,6 @@ cc.Class({
 
   properties: {},
   onCollisionEnter(other, self) {
-    // console.log(other);
-    // console.log(self);
     if (other.tag == 2) this.node.destroy();
     if (other.tag == 1) cc.director.loadScene('Game');
   },

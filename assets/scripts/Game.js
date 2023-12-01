@@ -6,19 +6,43 @@ cc.Class({
       default: null,
       type: cc.Prefab,
     },
+    badguy: {
+      default: null,
+      type: cc.Prefab,
+    },
     posX: 0,
     posY: 0,
   },
 
   onLoad() {
     this.node.on('mousedown', this.spawnBullets, this);
-    let manager = cc.director.getCollisionManager();
-    manager.enabled = true;
+    this.schedule(this.createBad, 1, cc.macro.REPEAT_FOREVER, 3);
   },
 
   start() {},
 
   update(dt) {},
+  createBad() {
+    let newBadGuy = cc.instantiate(this.badguy);
+    let positions = [
+      cc.v2(-778, 458),
+      cc.v2(778, -458),
+      cc.v2(779, 6),
+      cc.v2(-700, 20),
+      cc.v2(778, 700),
+      cc.v2(-778, -758),
+      cc.v2(779, 200),
+      cc.v2(-700, 20),
+      cc.v2(779, -200),
+      cc.v2(-250, 0),
+      cc.v2(-250, -150),
+      cc.v2(-250, 100),
+      cc.v2(-250, 500),
+    ];
+    let badGuyPosition = Math.floor(Math.random() * positions.length);
+    newBadGuy.setPosition(positions[badGuyPosition]);
+    this.node.addChild(newBadGuy);
+  },
 
   spawnBullets(event) {
     let newBullet = cc.instantiate(this.bullet);
