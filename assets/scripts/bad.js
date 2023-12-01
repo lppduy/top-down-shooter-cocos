@@ -3,7 +3,10 @@ cc.Class({
 
   properties: {},
   onCollisionEnter(other, self) {
-    if (other.tag == 2) this.node.destroy();
+    if (other.tag == 2) {
+      this.node.destroy();
+      this.node.parent.getComponent('Game').addScore();
+    }
     if (other.tag == 1) cc.director.loadScene('Game');
   },
   onLoad() {

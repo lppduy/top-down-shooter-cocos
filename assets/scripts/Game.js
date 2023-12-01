@@ -10,18 +10,27 @@ cc.Class({
       default: null,
       type: cc.Prefab,
     },
+    scoreLabel: {
+      default: null,
+      type: cc.Label,
+    },
     posX: 0,
     posY: 0,
+    score: 0,
   },
 
   onLoad() {
     this.node.on('mousedown', this.spawnBullets, this);
-    this.schedule(this.createBad, 1, cc.macro.REPEAT_FOREVER, 3);
+    this.schedule(this.createBad, 0.8, cc.macro.REPEAT_FOREVER, 3);
   },
 
   start() {},
 
   update(dt) {},
+  addScore() {
+    this.score += 10;
+    this.scoreLabel.string = 'SCORE: ' + this.score.toString();
+  },
   createBad() {
     let newBadGuy = cc.instantiate(this.badguy);
     let positions = [
