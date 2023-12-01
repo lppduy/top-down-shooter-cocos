@@ -5,6 +5,8 @@ cc.Class({
 
   onLoad() {
     this.node.parent.on('mousemove', this.positionXY, this);
+    let manager = cc.director.getCollisionManager();
+    manager.enabled = true;
   },
 
   start() {},
@@ -13,7 +15,6 @@ cc.Class({
 
   positionXY(event) {
     let playerPosition = cc.v2(this.node.position.x, this.node.position.y);
-    console.log(playerPosition);
     let mousePosition = event.getLocation();
     mousePosition = this.node.parent.convertToNodeSpaceAR(mousePosition);
     let angle = mousePosition.signAngle(playerPosition);

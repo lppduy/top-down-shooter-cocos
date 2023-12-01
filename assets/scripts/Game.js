@@ -6,18 +6,14 @@ cc.Class({
       default: null,
       type: cc.Prefab,
     },
-    posX: {
-      default: 0,
-      type: cc.Float,
-    },
-    posY: {
-      default: 0,
-      type: cc.Float,
-    },
+    posX: 0,
+    posY: 0,
   },
 
   onLoad() {
     this.node.on('mousedown', this.spawnBullets, this);
+    let manager = cc.director.getCollisionManager();
+    manager.enabled = true;
   },
 
   start() {},
@@ -25,10 +21,11 @@ cc.Class({
   update(dt) {},
 
   spawnBullets(event) {
-    let player = this.node.getChildByName('soldier1');
-
     let newBullet = cc.instantiate(this.bullet);
-    newBullet.setPosition(player.position.x, player.position.y);
+    newBullet.setPosition(
+      this.node.getChildByName('soldier1').position.x,
+      this.node.getChildByName('soldier1').position.y
+    );
     this.node.addChild(newBullet);
 
     let mousePosition = event.getLocation();
