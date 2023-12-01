@@ -14,6 +14,10 @@ cc.Class({
       default: null,
       type: cc.Label,
     },
+    gunSound: {
+      default: null,
+      type: cc.AudioClip,
+    },
     posX: 0,
     posY: 0,
     score: 0,
@@ -27,6 +31,7 @@ cc.Class({
   start() {},
 
   update(dt) {},
+
   addScore() {
     this.score += 10;
     this.scoreLabel.string = 'SCORE: ' + this.score.toString();
@@ -74,5 +79,6 @@ cc.Class({
 
     let sequence = cc.sequence(actionBy, destruction);
     newBullet.runAction(sequence);
+    cc.audioEngine.playEffect(this.gunSound, false);
   },
 });
