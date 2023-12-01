@@ -12,7 +12,6 @@ cc.Class({
   onLoad() {
     let manager = cc.director.getCollisionManager();
     manager.enabled = true;
-    manager.enabledDebugDraw = true;
     cc.director.preloadScene('Game');
 
     this.action = this.moveToPlayer();
@@ -28,7 +27,7 @@ cc.Class({
     let moveAction = cc.moveTo(
       3,
       this.node.parent.getChildByName('soldier1').position.x,
-      this.node.parent.getChildByName('soldier1').position.y
+      this.node.parent.getChildByName('soldier1').position.y,
     );
     return moveAction;
   },
