@@ -1,41 +1,48 @@
-// Learn cc.Class:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/class.html
-//  - [English] http://docs.cocos2d-x.org/creator/manual/en/scripting/class.html
-// Learn Attribute:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
-//  - [English] http://docs.cocos2d-x.org/creator/manual/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - [Chinese] https://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
-//  - [English] https://www.cocos2d-x.org/docs/creator/manual/en/scripting/life-cycle-callbacks.html
-
 cc.Class({
-    extends: cc.Component,
+  extends: cc.Component,
 
-    properties: {
-        // foo: {
-        //     // ATTRIBUTES:
-        //     default: null,        // The default value will be used only when the component attaching
-        //                           // to a node for the first time
-        //     type: cc.SpriteFrame, // optional, default is typeof default
-        //     serializable: true,   // optional, default is true
-        // },
-        // bar: {
-        //     get () {
-        //         return this._bar;
-        //     },
-        //     set (value) {
-        //         this._bar = value;
-        //     }
-        // },
+  properties: {
+    bullet: {
+      default: null,
+      type: cc.Prefab,
     },
-
-    // LIFE-CYCLE CALLBACKS:
-
-    // onLoad () {},
-
-    start () {
-
+    posX: {
+      default: 0,
+      type: cc.Float,
     },
+    posY: {
+      default: 0,
+      type: cc.Float,
+    },
+  },
 
-    // update (dt) {},
+  onLoad() {
+    this.node.on('mousedown', this.spawnBullets, this);
+  },
+
+  start() {},
+
+  update(dt) {},
+
+  spawnBullets(event) {
+    let player = this.node.getChildByName('soldier1');
+
+    let newBullet = cc.instantiate(this.bullet);
+    newBullet.setPosition(player.position.x, player.position.y);
+    this.node.addChild(newBullet);
+
+    let mousePosition = event.getLocation();
+    mousePosition = this.node.convertToNodeSpaceAR(mousePosition);
+
+    this.posX = mousePosition.x;
+    this.posY = mousePosition.y;
+
+    let actionBy = cc.moveTo(0.2, cc.v2(this.posX, this.posY));
+    let destruction = cc.callFunc(function () {
+      newBullet.destroy();
+    }, this);
+
+    let sequence = cc.sequence(actionBy, destruction);
+    newBullet.runAction(sequence);
+  },
 });
